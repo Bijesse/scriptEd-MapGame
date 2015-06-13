@@ -76,7 +76,6 @@
 
     var endGame = function () {
         currentPlayerIndex = 0;
-        markersLayer.clearLayers();
 
         var options = {
           lat: currentCity.CapitalLatitude,
