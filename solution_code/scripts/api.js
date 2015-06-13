@@ -1,5 +1,8 @@
 (function($) {
-
+  /**
+   * Holds the country data
+   * @type {Array}
+   */
   var countryCapitals = (countryCapitals || []);
 
   /**
@@ -17,13 +20,13 @@
    * Returns a randomCapital
    * @return {String} a Country capital
    */
-  var randomCapital = function randomCapital() {
+  var randomCityWithCapital = function randomCityWithCapital() {
 
     var random = Math.round(Math.random() * countryCapitals.length);
 
-    return countryCapitals[random].capital;
+    return countryCapitals[random];
   };
 
-  window.randomCapital = randomCapital;
+  window.randomCityWithCapital = randomCityWithCapital;
 
 }(jQuery));
