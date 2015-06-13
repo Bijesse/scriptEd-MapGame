@@ -5,8 +5,14 @@
     var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
     var players = [];
     var currentPlayerIndex = 0;
+<<<<<<< HEAD
     var currentCity;
     var cityCapitalLatLng;
+=======
+    var currentCity = window.mapGame.API.randomCityCapital()
+    var cityCapitalLatLng = L.latLng(currentCity.CapitalLatitude, currentCity.CapitalLongitude);
+    var markersLayer = L.layerGroup();
+>>>>>>> origin/master
     // L.latLng(40.748817, -73.985428); // Test New York City coordinates
 
     var setCapitalCity = function setCapitalCity() {
@@ -29,6 +35,8 @@
 
         map.on('click', function (event) {
             var latLng = event.latlng;
+
+            renderMarker(latLng, false);
 
             var distance = latLng.distanceTo(cityCapitalLatLng);
 
@@ -109,7 +117,6 @@
         for (var i=0; i<playersCount; i++) {
             $formContainer.append($template);
         }
-
     };
 
     var isPlayersFieldsValid = function () {
@@ -156,9 +163,31 @@
         return isValid;
     };
 
+    var renderMarker = function (coords, isAnswer) {
+        var coordsArray = [coords.lat, coords.lng];
+
+        if (isAnswer) {
+            var marker = L.marker(coordsArray).addTo(map);
+
+            markersLayer.addLayer(marker).addTo(map);
+        } else {
+            var circle = L.circle(coordsArray, 100000, {
+                color: 'red',
+                fillColor: '#f03',
+            });
+
+            markersLayer.addLayer(circle).addTo(map);
+        }
+
+        // use this to clear the markers
+        // markersLayer.clearLayers();
+
+    };
+
 
     $(function () {
         createMap();
         listenToStartForm();
+        listenToMapClicks();
     });
 })(jQuery);
