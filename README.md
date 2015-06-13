@@ -3,7 +3,7 @@
 ![image](http://upload.wikimedia.org/wikipedia/commons/1/12/World_map_2004_CIA_large_1.7m_whitespace_removed.jpg)
 
 ##Scope
-
+You have just been hired by an education company to create a game that will help students learn geography.
 
 ##Project Description
 Your Manager has laid out the following requirements for the project: 
