@@ -13,6 +13,7 @@
           display: block;
         }
         div.player-rankings {
+          margin-top: 15px;
           display: none;
         }
     </style>
@@ -36,8 +37,12 @@
                     </div>
                     <div id="player-names"></div>
                     <button type="button" class="btn btn-default hidden" id="start-game-btn">Start</button>
+                    <button type="button" class="btn btn-default hidden" id="reset-game">Reset</button>
                 </form>
-                <div class="player-rankings well"></div>
+                <div class="player-rankings well">
+                  <h4>Players Rank</h4>
+                  <div class="players"></div>
+                </div>
             </div>
             <div class="col-sm-10">
                 <div id="map"></div>

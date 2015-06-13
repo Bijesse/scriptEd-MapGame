@@ -71,14 +71,23 @@
         ul.appendChild(li);
       });
 
-      $('div.player-rankings').addClass('show').html(ul);
+      $('div.player-rankings').addClass('show').find('div.players').html(ul);
     };
 
     var endGame = function () {
         currentPlayerIndex = 0;
         sortPlayers();
         displayPlayers();
-        //
+        $('#reset-game').removeClass('hidden');
+        listenToResetForm();
+    };
+
+    var listenToResetForm = function listenToResetForm() {
+      $('#reset-game').click(function () {
+        setCapitalCity();
+        players = [];
+        $('div.player-rankings').removeClass('show').find('div.players').html('');
+      });
     };
 
     var listenToStartForm = function () {
@@ -188,6 +197,5 @@
     $(function () {
         createMap();
         listenToStartForm();
-        listenToMapClicks();
     });
 })(jQuery);
