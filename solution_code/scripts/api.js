@@ -1,9 +1,16 @@
 (function($) {
+
+  /**
+   * The mapGame Name space
+   * @param  {Object}
+   */
+  window.mapGame = (window.mapGame || {});
+
   /**
    * Holds the country data
    * @type {Array}
    */
-  var countryCapitals = (countryCapitals || []);
+  var countryCapitals = (window.countryCapitals || []);
 
   /**
    * Assign countryCapitals with the returned data
@@ -12,9 +19,6 @@
   var processData = function processData(data) {
     countryCapitals = data;
   };
-
-  // Call the api to get all counties with their capital
-  $.getJSON('https://restcountries.eu/rest/v1/all', processData);
 
   /**
    * Returns a randomCapital
@@ -26,6 +30,19 @@
 
     return countryCapitals[random];
   };
+  /**
+   * Find a country with the lat long that was passed in
+   * @param  {Array} latLong The lat long that was passed
+   * @return {Object}
+   */
+  var findCapital = function(latLong) {
+    var lat = latLong[0];
+    var long = latLong[1];
+
+    return countryCapitals.filter(function filterCapitals(capital) {
+      return capital.CapitalLatitude === lat && capital.CapitalLongitude === long;
+    })[0];
+  };
 
   /**
    * Returns distance between capital and click coordinates
@@ -35,7 +52,11 @@
     return map.distanceTo(LatLng, otherLatLng)
   };
 
-  window.randomCityWithCapital = randomCityWithCapital;
-  window.calculateDistance - calculateDistance;
+  // Expose the api methods
+  window.mapGame.API = {
+    randomCityWithCapital: randomCityWithCapital,
+    findCapital: findCapital,
+    calculateDistance: calculateDistance
+  };
 
 }(jQuery));
