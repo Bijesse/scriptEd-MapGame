@@ -16,7 +16,7 @@
    * Returns a randomCapital
    * @return {String} a Country capital
    */
-  var randomCityWithCapital = function randomCityWithCapital() {
+  var randomCityCapital = function randomCityCapital() {
 
     var random = Math.round(Math.random() * countryCapitals.length);
 
@@ -36,19 +36,10 @@
     })[0];
   };
 
-  /**
-   * Returns distance between capital and click coordinates
-   * @return {Number} distance
-   */
-  var calculateDistance = function calculateDistance(LatLng, otherLatLng) {
-    return map.distanceTo(LatLng, otherLatLng)
-  };
-
   // Expose the api methods
   window.mapGame.API = {
-    randomCityWithCapital: randomCityWithCapital,
-    findCapital: findCapital,
-    calculateDistance: calculateDistance
+    randomCityCapital: randomCityCapital,
+    findCapital: findCapital
   };
 
 }(jQuery));

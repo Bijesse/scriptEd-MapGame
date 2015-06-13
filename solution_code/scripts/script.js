@@ -5,6 +5,13 @@
     var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
     var playerGuesses = [];
     var players = [];
+    var currentCity = window.mapGame.API.randomCityCapital()
+    var cityCapitalLatLng = L.latLng(currentCity.CapitalLatitude, currentCity.CapitalLongitude);
+    // L.latLng(40.748817, -73.985428); // Test New York City coordinates
+
+    var initialize = function () {
+      $('h3.current-capital').text('Find: ' + currentCity.CapitalName);
+    };
 
     var createMap = function () {
         map = L.map('map').setView([51.505, -0.09], 2);
@@ -20,9 +27,10 @@
 
         map.on('click', function (event) {
             var latLng = event.latlng;
-            var distance = calculateDistance(latLng, cityCapitalLatLng);
 
-            playerGuesses.push();
+            var distance = latLng.distanceTo(cityCapitalLatLng);
+
+            playerGuesses.push(distance);
 
             if (playerGuesses.length == players.length) {
                 endGame();
@@ -48,6 +56,13 @@
 
             renderFormForPlayers(numPlayers);
         });
+
+        $('#player-names').on('keyup', '.username', function () {
+            console.log('adf');
+            if (isPlayersFieldsValid()) {
+                $('#start-game-btn').removeClass('hidden');
+            }
+        });
     }
 
     var renderFormForPlayers = function (playersCount) {
@@ -62,6 +77,20 @@
         for (var i=0; i<playersCount; i++) {
             $formContainer.append($template);
         }
+
+
+    };
+
+    var isPlayersFieldsValid = function () {
+        var isValid = true;
+
+        $('.username').each(function () {
+            if ($(this).val() === '') {
+                isValid = false
+            };
+        });
+
+        return isValid;
     };
 
     var listenToStartBtn = function () {
@@ -98,6 +127,7 @@
 
 
     $(function () {
+        initialize();
         createMap();
         listenToStartGame();
     });
