@@ -25,10 +25,17 @@
 
             playerGuesses.push();
 
-
+            if (playerGuesses.length == players.length) {
+                endGame();
+            }
         });
     };
 
+    var endGame = function () {
+        // TODO determine and display winner
+        
+        
+    };
 
     $(function () {
         createMap();
