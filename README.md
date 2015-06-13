@@ -1,6 +1,6 @@
 # Find the Capital
 
-![image]()
+[image](http://upload.wikimedia.org/wikipedia/commons/1/12/World_map_2004_CIA_large_1.7m_whitespace_removed.jpg)
 
 ##Scope
 
