@@ -41,8 +41,13 @@
             var numPlayers = event.target.value;
 
             renderFormForPlayers(numPlayers);
+        });
 
-            $('#start-game-btn').removeClass('hidden');
+        $('#player-names').on('keyup', '.username', function () {
+            console.log('adf');
+            if (isPlayersFieldsValid()) {
+                $('#start-game-btn').removeClass('hidden');
+            }
         });
 
         $('#start-game-btn').click(function () {
@@ -67,6 +72,20 @@
             console.log($template);
             $formContainer.append($template);
         }
+
+
+    };
+
+    var isPlayersFieldsValid = function () {
+        var isValid = true;
+
+        $('.username').each(function () {
+            if ($(this).val() === '') {
+                isValid = false
+            };
+        });
+
+        return isValid;
     };
 
 
