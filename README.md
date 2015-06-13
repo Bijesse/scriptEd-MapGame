@@ -8,12 +8,14 @@
 ##Project Description
 Your Manager has laid out the following requirements for the project: 
 
-* 
+Create a game where up to 4 players can guess the location of a capital city on a blank map. Once all players have clicked the game ends and desplays player ranks based on the closest click. The player that clicks closest to the actual capital wins.
 
 ##Learning Objectives
-By the end of this project the employee will be able to...
-
-* 
+By the end of this project the employee will be able to:
+* add css and javascript resources to the page
+* find html elements using jquery API and attach on-click events
+* find html elements change their content using jquery API
+* perform basic commands using the leafletjs API
 
 ##References/Tools
 * leafletjs - (http://leafletjs.com/) - map API
