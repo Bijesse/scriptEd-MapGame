@@ -17,10 +17,6 @@
    * @return {String} a Country capital
    */
   var randomCityCapital = function randomCityCapital() {
-
-    var random = Math.round(Math.random() * countryCapitals.length);
-
-    return countryCapitals[random];
   };
   /**
    * Find a country with the lat long that was passed in
@@ -28,12 +24,6 @@
    * @return {Object}
    */
   var findCapital = function(latLong) {
-    var lat = latLong[0];
-    var long = latLong[1];
-
-    return countryCapitals.filter(function filterCapitals(capital) {
-      return capital.CapitalLatitude === lat && capital.CapitalLongitude === long;
-    })[0];
   };
 
   // Expose the api methods
