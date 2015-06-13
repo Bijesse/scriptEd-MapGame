@@ -13,14 +13,6 @@
   var countryCapitals = (window.countryCapitals || []);
 
   /**
-   * Assign countryCapitals with the returned data
-   * @param  {Array} data A list of countries
-   */
-  var processData = function processData(data) {
-    countryCapitals = data;
-  };
-
-  /**
    * Returns a randomCapital
    * @return {String} a Country capital
    */
