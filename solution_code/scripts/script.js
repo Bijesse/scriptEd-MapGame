@@ -76,6 +76,15 @@
 
     var endGame = function () {
         currentPlayerIndex = 0;
+        markersLayer.clearLayers();
+
+        var options = {
+          lat: currentCity.CapitalLatitude,
+          lng: currentCity.CapitalLongitude
+        };
+
+        renderMarker(options, true);
+
         sortPlayers();
         displayPlayers();
         $('#reset-game').removeClass('hidden');
@@ -86,6 +95,7 @@
       $('#reset-game').click(function () {
         setCapitalCity();
         players = [];
+        markersLayer.clearLayers();
         $('div.player-rankings').removeClass('show').find('div.players').html('');
       });
     };
@@ -142,7 +152,7 @@
         $('#start-game-btn').click(function () {
             setCapitalCity();
             $('.username').each(function (idx, player) {
-                player.readonly = true;
+                player.disabled = true;
                 players.push({name: player.value});
             });
             $('#start-game-btn').addClass('hidden');
@@ -187,9 +197,6 @@
 
             markersLayer.addLayer(circle).addTo(map);
         }
-
-        // use this to clear the markers
-        // markersLayer.clearLayers();
 
     };
 
