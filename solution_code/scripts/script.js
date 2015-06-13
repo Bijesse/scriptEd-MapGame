@@ -5,12 +5,14 @@
     var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
     var players = [];
     var currentPlayerIndex = 0;
-    var currentCity = window.mapGame.API.randomCityCapital()
-    var cityCapitalLatLng = L.latLng(currentCity.CapitalLatitude, currentCity.CapitalLongitude);
+    var currentCity;
+    var cityCapitalLatLng;
     // L.latLng(40.748817, -73.985428); // Test New York City coordinates
 
-    var initialize = function () {
-      $('h3.current-capital').text('Find: ' + currentCity.CapitalName);
+    var setCapitalCity = function setCapitalCity() {
+        currentCity = window.mapGame.API.randomCityCapital();
+        cityCapitalLatLng = L.latLng(currentCity.CapitalLatitude, currentCity.CapitalLongitude);
+        $('h3.current-capital').text('Find: ' + currentCity.CapitalName);
     };
 
     var createMap = function () {
@@ -35,7 +37,7 @@
             currentPlayer.guess = distance;
 
             players[currentPlayer] = currentPlayer;
-
+            console.log(currentPlayerIndex, players.length - 1);
             if (players.length - 1 == currentPlayerIndex) {
                 currentPlayerIndex = 0;
                 endGame();
@@ -57,7 +59,8 @@
 
       players.forEach(function p(player, index) {
         var li = document.createElement('li');
-        li.textContent = document.createTextNode((index + 1) + ' ' + player.name);
+        li.appendChild(document.createTextNode((index + 1) + ' ' + player.name));
+        ul.appendChild(li);
       });
 
       $('div.player-rankings').html(ul);
@@ -72,7 +75,7 @@
 
     };
 
-    var listenToStartGame = function () {
+    var listenToStartForm = function () {
         listenToPlayersChange();
         startListeningForPlayerNames();
         listenToStartBtn();
@@ -123,9 +126,9 @@
 
     var listenToStartBtn = function () {
         $('#start-game-btn').click(function () {
-            var randomCity = randomCityWithCapital();
-            players.forEach(function (player) {
-
+          setCapitalCity();
+            $('.username').each(function (idx, player) {
+                players.push({name: player.value});
             });
             listenToMapClicks();
         });
@@ -155,8 +158,7 @@
 
 
     $(function () {
-        initialize();
         createMap();
-        listenToStartGame();
+        listenToStartForm();
     });
 })(jQuery);
