@@ -36,7 +36,15 @@
         
     };
 
-    var listenToStart = function () {
+    var listenToStartGame = function () {
+        $('#num-players').change(function (event) {
+            var numPlayers = event.target.value;
+
+            renderFormForPlayers(numPlayers);
+
+            $('#start-game-btn').removeClass('hidden');
+        });
+
         $('#start-game-btn').click(function () {
             var randomCity = randomCityWithCapital();
             
@@ -46,11 +54,25 @@
         });
     };
 
-    
+    var renderFormForPlayers = function (playersCount) {
+        // clear out the form first
+        var $formContainer = $('#player-names');
+        $formContainer.html('');
+
+        // variable of the template
+        var $template = $('#name-field-template').html();
+
+        // render template for each player
+        for (var i=0; i<playersCount; i++) {
+            console.log($template);
+            $formContainer.append($template);
+        }
+    };
+
 
     $(function () {
         createMap();
         listenToMapClicks();
-        listenToStart();
+        listenToStartGame();
     });
 })(jQuery);
