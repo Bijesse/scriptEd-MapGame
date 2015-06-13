@@ -5,14 +5,9 @@
     var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
     var players = [];
     var currentPlayerIndex = 0;
-<<<<<<< HEAD
     var currentCity;
     var cityCapitalLatLng;
-=======
-    var currentCity = window.mapGame.API.randomCityCapital()
-    var cityCapitalLatLng = L.latLng(currentCity.CapitalLatitude, currentCity.CapitalLongitude);
     var markersLayer = L.layerGroup();
->>>>>>> origin/master
     // L.latLng(40.748817, -73.985428); // Test New York City coordinates
 
     var setCapitalCity = function setCapitalCity() {
@@ -31,29 +26,32 @@
         }).addTo(map);
     };
 
+    var handleMapClick = function handleMapClick(event) {
+      var latLng = event.latlng;
+
+      renderMarker(latLng, false);
+
+      var distance = latLng.distanceTo(cityCapitalLatLng);
+
+      var currentPlayer = players[currentPlayerIndex];
+
+      currentPlayer.guess = distance;
+
+      players[currentPlayer] = currentPlayer;
+
+      if (players.length - 1 === currentPlayerIndex) {
+          map.off('click', handleMapClick);
+          endGame();
+          return null; // we are done
+      }
+
+      currentPlayerIndex++;
+
+    };
+
     var listenToMapClicks = function () {
 
-        map.on('click', function (event) {
-            var latLng = event.latlng;
-
-            renderMarker(latLng, false);
-
-            var distance = latLng.distanceTo(cityCapitalLatLng);
-
-            var currentPlayer = players[currentPlayerIndex];
-
-            currentPlayer.guess = distance;
-
-            players[currentPlayer] = currentPlayer;
-            console.log(currentPlayerIndex, players.length - 1);
-            if (players.length - 1 == currentPlayerIndex) {
-                currentPlayerIndex = 0;
-                endGame();
-                return null; // we are done
-            }
-
-            currentPlayerIndex++;
-        });
+        map.on('click', handleMapClick);
     };
 
     var sortPlayers = function sortPlayers() {
@@ -64,23 +62,23 @@
 
     var displayPlayers = function displayPlayers() {
       var ul = document.createElement('ul');
+      ul.className = 'list-group';
 
       players.forEach(function p(player, index) {
         var li = document.createElement('li');
         li.appendChild(document.createTextNode((index + 1) + ' ' + player.name));
+        li.className = 'list-group-item';
         ul.appendChild(li);
       });
 
-      $('div.player-rankings').html(ul);
+      $('div.player-rankings').addClass('show').html(ul);
     };
 
     var endGame = function () {
-      sortPlayers();
-      displayPlayers();
-        // TODO determine and display winner
-        // Dissable map clicks
-        // and display the winner
-
+        currentPlayerIndex = 0;
+        sortPlayers();
+        displayPlayers();
+        //
     };
 
     var listenToStartForm = function () {
@@ -133,10 +131,12 @@
 
     var listenToStartBtn = function () {
         $('#start-game-btn').click(function () {
-          setCapitalCity();
+            setCapitalCity();
             $('.username').each(function (idx, player) {
+                player.readonly = true;
                 players.push({name: player.value});
             });
+            $('#start-game-btn').addClass('hidden');
             listenToMapClicks();
         });
     };

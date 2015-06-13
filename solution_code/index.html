@@ -9,6 +9,12 @@
             height: 600px;
             cursor: crosshair;
         }
+        div.player-rankings.show {
+          display: block;
+        }
+        div.player-rankings {
+          display: none;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +37,7 @@
                     <div id="player-names"></div>
                     <button type="button" class="btn btn-default hidden" id="start-game-btn">Start</button>
                 </form>
-                <div class="player-rankings"></div>
+                <div class="player-rankings well"></div>
             </div>
             <div class="col-sm-10">
                 <div id="map"></div>
