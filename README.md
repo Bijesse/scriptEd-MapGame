@@ -30,7 +30,7 @@ By the end of this project the employee will be able to...
 
 ##Vocabulary
 
-*
+* API(Applications Program Interface) - a set of routines, protocols, and tools for building software applications. For example map.create method that creates a map on the page.
 
 
 ##How to Submit
