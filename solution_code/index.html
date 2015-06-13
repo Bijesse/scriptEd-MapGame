@@ -13,6 +13,8 @@
 <body>
     <div id="map"></div>
     <script>
+        'use strict';
+        var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
         var map = L.map('map').setView([51.505, -0.09], 2);
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -21,11 +23,11 @@
             maxZoom: 2
         }).addTo(map);
 
-        map.on('moveend', function () {
-            if (map.getZoom() >= 12 && map.hasLayer(cities)) {
-                map.removeLayer(cities);
-            }
-        });
+        map.on('click', function (event) {
+            var latLng = event.latlng;
+
+            console.log(latLng);
+        })
     </script>
 </body>
 </html>
