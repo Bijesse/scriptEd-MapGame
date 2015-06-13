@@ -36,6 +36,6 @@
   };
 
   window.randomCityWithCapital = randomCityWithCapital;
-  window.calculateDistance - calculateDistance;
+  window.calculateDistance = calculateDistance;
 
 }(jQuery));
