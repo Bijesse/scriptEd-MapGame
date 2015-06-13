@@ -1,4 +1,5 @@
 'use strict';
+
   var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
   // create a map instance
   var map = L.map('map').setView([51.505, -0.09], 2);
