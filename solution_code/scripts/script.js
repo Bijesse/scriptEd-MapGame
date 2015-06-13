@@ -29,11 +29,11 @@
     var handleMapClick = function handleMapClick(event) {
       var latLng = event.latlng;
 
-      renderMarker(latLng, false);
-
       var distance = latLng.distanceTo(cityCapitalLatLng);
 
       var currentPlayer = players[currentPlayerIndex];
+
+      renderMarker(latLng, false, currentPlayer.name);
 
       currentPlayer.guess = distance;
 
@@ -181,11 +181,15 @@
         return isValid;
     };
 
-    var renderMarker = function (coords, isAnswer) {
+    var renderMarker = function (coords, isAnswer, player) {
         var coordsArray = [coords.lat, coords.lng];
 
         if (isAnswer) {
             var marker = L.marker(coordsArray).addTo(map);
+
+            if (player) {
+              marker.bindLabel(player, {noHide: true, className: "player-label", offset: [0, 0] });
+            }
 
             markersLayer.addLayer(marker).addTo(map);
         } else {
