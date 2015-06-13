@@ -5,6 +5,8 @@
     var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
     var playerGuesses = [];
     var players = [];
+    
+    // var cityCapitalLatLng = L.latLng(40.748817, -73.985428);
 
     var createMap = function () {
         map = L.map('map').setView([51.505, -0.09], 2);
@@ -20,7 +22,9 @@
 
         map.on('click', function (event) {
             var latLng = event.latlng;
-            var distance = calculateDistance(latLng, cityCapitalLatLng);
+
+            console.log(cityCapitalLatLng.distanceTo(latLng));
+            var distance = latLng.distanceTo(cityCapitalLatLng);
 
             playerGuesses.push();
 

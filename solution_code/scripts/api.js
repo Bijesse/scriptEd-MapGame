@@ -27,14 +27,6 @@
     return countryCapitals[random];
   };
 
-  /**
-   * Returns distance between capital and click coordinates
-   * @return {Number} distance
-   */
-  var calculateDistance = function calculateDistance(LatLng, otherLatLng) {
-    return map.distanceTo(LatLng, otherLatLng)
-  };
-
   window.randomCityWithCapital = randomCityWithCapital;
   window.calculateDistance = calculateDistance;
 
