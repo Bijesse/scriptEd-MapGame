@@ -1,5 +1,8 @@
 (function($) {
-
+  /**
+   * Holds the country data
+   * @type {Array}
+   */
   var countryCapitals = (countryCapitals || []);
 
   /**
@@ -17,11 +20,11 @@
    * Returns a randomCapital
    * @return {String} a Country capital
    */
-  var randomCapital = function randomCapital() {
+  var randomCityWithCapital = function randomCityWithCapital() {
 
     var random = Math.round(Math.random() * countryCapitals.length);
 
-    return countryCapitals[random].capital;
+    return countryCapitals[random];
   };
 
   /**
@@ -29,10 +32,10 @@
    * @return {Number} distance
    */
   var calculateDistance = function calculateDistance(LatLng, otherLatLng) {
-    map.distanceTo(LatLng, otherLatLng)
-  
+    return map.distanceTo(LatLng, otherLatLng)
   };
 
-  window.randomCapital = randomCapital;
+  window.randomCityWithCapital = randomCityWithCapital;
+  window.calculateDistance - calculateDistance;
 
 }(jQuery));
