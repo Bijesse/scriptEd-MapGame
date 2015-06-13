@@ -3,16 +3,14 @@
 (function ($) {
     var map;
     var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
-    window.players = [];
+    var players = [];
     var currentPlayerIndex = 0;
-    var currentCity;
-    var cityCapitalLatLng;
+    var currentCity = window.mapGame.API.randomCityCapital()
+    var cityCapitalLatLng = L.latLng(currentCity.CapitalLatitude, currentCity.CapitalLongitude);
     // L.latLng(40.748817, -73.985428); // Test New York City coordinates
 
-    var setCapitalCity = function () {
-        currentCity = window.mapGame.API.randomCityCapital();
-        cityCapitalLatLng = L.latLng(currentCity.CapitalLatitude, currentCity.CapitalLongitude);
-        $('h3.current-capital').text('Find: ' + currentCity.CapitalName);
+    var initialize = function () {
+      $('h3.current-capital').text('Find: ' + currentCity.CapitalName);
     };
 
     var createMap = function () {
@@ -48,14 +46,33 @@
         });
     };
 
+    var sortPlayers = function sortPlayers() {
+      players.sort(function(a, b) {
+        return a.guess < b.guess;
+      });
+    };
+
+    var displayPlayers = function displayPlayers() {
+      var ul = document.createElement('ul');
+
+      players.forEach(function p(player, index) {
+        var li = document.createElement('li');
+        li.textContent = document.createTextNode((index + 1) + ' ' + player.name);
+      });
+
+      $('div.player-rankings').html(ul);
+    };
+
     var endGame = function () {
+      sortPlayers();
+      displayPlayers();
         // TODO determine and display winner
         // Dissable map clicks
         // and display the winner
 
     };
 
-    var listenToStartForm = function () {
+    var listenToStartGame = function () {
         listenToPlayersChange();
         startListeningForPlayerNames();
         listenToStartBtn();
@@ -79,7 +96,7 @@
     var renderFormForPlayers = function (playersCount) {
         // clear out the form first
         var $formContainer = $('#player-names');
-        
+
         $formContainer.html('');
 
         // variable of the template
@@ -106,9 +123,9 @@
 
     var listenToStartBtn = function () {
         $('#start-game-btn').click(function () {
-            setCapitalCity();
-            $('.username').each(function (idx, player) {
-                players.push({name: player.value});
+            var randomCity = randomCityWithCapital();
+            players.forEach(function (player) {
+
             });
             listenToMapClicks();
         });
@@ -138,7 +155,8 @@
 
 
     $(function () {
+        initialize();
         createMap();
-        listenToStartForm();
+        listenToStartGame();
     });
 })(jQuery);
