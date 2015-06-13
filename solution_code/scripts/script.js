@@ -3,6 +3,8 @@
 (function ($) {
     var map;
     var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
+    var playerGuesses = [];
+    var players = [];
 
     var createMap = function () {
         map = L.map('map').setView([51.505, -0.09], 2);
@@ -16,14 +18,39 @@
 
     var listenToMapClicks = function () {
 
+        map.on('click', function (event) {
+            var latLng = event.latlng;
+            var distance = calculateDistance(latLng, cityCapitalLatLng);
+
+            playerGuesses.push();
+
+            if (playerGuesses.length == players.length) {
+                endGame();
+            }
+        });
     };
+
+    var endGame = function () {
+        // TODO determine and display winner
+        
+        
+    };
+
+    var listenToStart = function () {
+        $('#start-game-btn').click(function () {
+            var randomCity = randomCityWithCapital();
+            
+            players.forEach(function (player) {
+
+            });
+        });
+    };
+
+    
 
     $(function () {
         createMap();
-        
-        map.on('click', function (event) {
-            var latLng = event.latlng;
-            console.log(latLng);
-        });
+        listenToMapClicks();
+        listenToStart();
     });
 })(jQuery);
