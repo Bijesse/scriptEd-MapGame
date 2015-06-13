@@ -3,8 +3,8 @@
 (function ($) {
     var map;
     var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
-    var playerGuesses = [];
     var players = [];
+    var currentPlayerIndex = 0;
     var currentCity = window.mapGame.API.randomCityCapital()
     var cityCapitalLatLng = L.latLng(currentCity.CapitalLatitude, currentCity.CapitalLongitude);
     // L.latLng(40.748817, -73.985428); // Test New York City coordinates
@@ -30,18 +30,27 @@
 
             var distance = latLng.distanceTo(cityCapitalLatLng);
 
-            playerGuesses.push(distance);
+            var currentPlayer = players[currentPlayerIndex];
 
-            if (playerGuesses.length == players.length) {
+            currentPlayer.guess = distance;
+
+            players[currentPlayer] = currentPlayer;
+
+            if (players.length - 1 == currentPlayerIndex) {
+                currentPlayerIndex = 0;
                 endGame();
+                return null; // we are done
             }
+
+            currentPlayerIndex++;
         });
     };
 
     var endGame = function () {
         // TODO determine and display winner
-        
-        
+        // Dissable map clicks
+        // and display the winner
+
     };
 
     var listenToStartGame = function () {
@@ -58,7 +67,7 @@
         });
 
         $('#player-names').on('keyup', '.username', function () {
-            console.log('adf');
+
             if (isPlayersFieldsValid()) {
                 $('#start-game-btn').removeClass('hidden');
             }
@@ -68,6 +77,7 @@
     var renderFormForPlayers = function (playersCount) {
         // clear out the form first
         var $formContainer = $('#player-names');
+        
         $formContainer.html('');
 
         // variable of the template
@@ -77,7 +87,6 @@
         for (var i=0; i<playersCount; i++) {
             $formContainer.append($template);
         }
-
 
     };
 
