@@ -37,22 +37,18 @@
     };
 
     var listenToStartGame = function () {
+        listenToPlayersChange();
+        startListeningForPlayerNames();
+        listenToStartBtn();
+    };
+
+    var listenToPlayersChange = function () {
         $('#num-players').change(function (event) {
             var numPlayers = event.target.value;
 
             renderFormForPlayers(numPlayers);
-
-            $('#start-game-btn').removeClass('hidden');
         });
-
-        $('#start-game-btn').click(function () {
-            var randomCity = randomCityWithCapital();
-            
-            players.forEach(function (player) {
-
-            });
-        });
-    };
+    }
 
     var renderFormForPlayers = function (playersCount) {
         // clear out the form first
@@ -64,15 +60,45 @@
 
         // render template for each player
         for (var i=0; i<playersCount; i++) {
-            console.log($template);
             $formContainer.append($template);
         }
+    };
+
+    var listenToStartBtn = function () {
+        $('#start-game-btn').click(function () {
+            var randomCity = randomCityWithCapital();
+            players.forEach(function (player) {
+
+            });
+            listenToMapClicks();
+        });
+    };
+
+
+
+    var startListeningForPlayerNames = function () {
+        $('#player-names').on('keyup', '.username', function () {
+            if (isPlayersFieldsValid()) {
+                $('#start-game-btn').removeClass('hidden');
+            }
+        });
+    }
+
+    var isPlayersFieldsValid = function () {
+        var isValid = true;
+
+        $('.username').each(function () {
+            if ($(this).val() === '') {
+                isValid = false
+            };
+        });
+
+        return isValid;
     };
 
 
     $(function () {
         createMap();
-        listenToMapClicks();
         listenToStartGame();
     });
 })(jQuery);
