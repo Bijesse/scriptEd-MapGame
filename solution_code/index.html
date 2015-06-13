@@ -3,7 +3,10 @@
 <head>
     <title>Maps Game</title>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <script src="./jquery.js"></script>
+    <script src="./script.js"></script>
     <style>
         #map { 
             height: 600px; 
@@ -11,23 +14,28 @@
     </style>
 </head>
 <body>
-    <div id="map"></div>
-    <script>
-        'use strict';
-        var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
-        var map = L.map('map').setView([51.505, -0.09], 2);
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+            <h1 class="lead">Capitls</h1>
+            <form id="game-form">
+                <h4>How many players?</h4>
+                <select class="form-control" id="num-players">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
 
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-            minZoom: 2,
-            maxZoom: 2
-        }).addTo(map);
+                <div id="player-names"></div>
 
-        map.on('click', function (event) {
-            var latLng = event.latlng;
-
-            console.log(latLng);
-        })
-    </script>
+                <button type="submit" class="form-control" id="start-game-btn">Start</button>
+            </form>
+            </div>
+            <div class="col-sm-10">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
