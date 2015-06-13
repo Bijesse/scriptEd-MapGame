@@ -14,19 +14,21 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2">
-                <h1 class="lead">Capitals</h1>
+                <h1 class="lead">Capital</h1>
+                <h3 class="current-capital"></h3>
                 <form id="game-form">
                     <h4>How many players?</h4>
                     <div class="form-group">
                       <select class="form-control" id="num-players">
+                          <option value=""></option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
                           <option value="4">4</option>
                       </select>
                     </div>
-                    <p></p>
-                    <button type="button" class="btn btn-default" id="start-game-btn">Start</button>
+                    <div id="player-names"></div>
+                    <button type="button" class="btn btn-default hidden" id="start-game-btn">Start</button>
                 </form>
             </div>
             <div class="col-sm-10">
@@ -36,7 +38,11 @@
     </div>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
     <script type="text/javascript" src="./scripts/jquery.js"></script>
+    <script type="text/javascript" src="../country_data/country-capitals.js"></script>
     <script type="text/javascript" src="./scripts/api.js"></script>
     <script type="text/javascript" src="./scripts/script.js"></script>
+    <script type="text/template" id="name-field-template">
+        <input type="text" class="form-control username" placeholder="player name"><br>
+    </script>
 </body>
 </html>

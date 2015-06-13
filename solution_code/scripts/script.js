@@ -5,8 +5,13 @@
     var worldCapitalsUrl = 'http://techslides.com/demos/country-capitals.json';
     var playerGuesses = [];
     var players = [];
-    
-    // var cityCapitalLatLng = L.latLng(40.748817, -73.985428);
+    var currentCity = window.mapGame.API.randomCityCapital()
+    var cityCapitalLatLng = L.latLng(currentCity.CapitalLatitude, currentCity.CapitalLongitude);
+    // L.latLng(40.748817, -73.985428); // Test New York City coordinates
+
+    var initialize = function () {
+      $('h3.current-capital').text('Find: ' + currentCity.CapitalName);
+    };
 
     var createMap = function () {
         map = L.map('map').setView([51.505, -0.09], 2);
@@ -23,10 +28,9 @@
         map.on('click', function (event) {
             var latLng = event.latlng;
 
-            console.log(cityCapitalLatLng.distanceTo(latLng));
             var distance = latLng.distanceTo(cityCapitalLatLng);
 
-            playerGuesses.push();
+            playerGuesses.push(distance);
 
             if (playerGuesses.length == players.length) {
                 endGame();
@@ -40,7 +44,15 @@
         
     };
 
-    var listenToStart = function () {
+    var listenToStartGame = function () {
+        $('#num-players').change(function (event) {
+            var numPlayers = event.target.value;
+
+            renderFormForPlayers(numPlayers);
+
+            $('#start-game-btn').removeClass('hidden');
+        });
+
         $('#start-game-btn').click(function () {
             var randomCity = randomCityWithCapital();
             
@@ -50,11 +62,26 @@
         });
     };
 
-    
+    var renderFormForPlayers = function (playersCount) {
+        // clear out the form first
+        var $formContainer = $('#player-names');
+        $formContainer.html('');
+
+        // variable of the template
+        var $template = $('#name-field-template').html();
+
+        // render template for each player
+        for (var i=0; i<playersCount; i++) {
+            console.log($template);
+            $formContainer.append($template);
+        }
+    };
+
 
     $(function () {
+        initialize();
         createMap();
         listenToMapClicks();
-        listenToStart();
+        listenToStartGame();
     });
 })(jQuery);
